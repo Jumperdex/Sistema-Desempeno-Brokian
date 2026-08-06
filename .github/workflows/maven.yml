@@ -1,0 +1,32 @@
+name: Java CI
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+
+  pull_request:
+    branches:
+      - develop
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Ejecutar pruebas JUnit
+        run: mvn clean test
